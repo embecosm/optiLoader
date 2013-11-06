@@ -3,6 +3,9 @@ optiLoader.pde
 Copyright (c) 2011 by Bill Westfield ("WestfW")
 Distributed under the terms of the "MIT OSSW License."
 
+6 November 2013: Updated for newer versions of the AVR GCC tool chain by
+Jeremy Bennett <jeremy.bennett@embecosm.com>
+
 Optiloader is a sketch designed for bulk upgrading of Arduino board
 bootloaders using another Arduino as a device programmer.  It stores
 multiple copies of the optiboot bootloader in program flash memory.  When

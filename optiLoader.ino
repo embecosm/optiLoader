@@ -107,14 +107,14 @@ char Arduino_preprocessor_hint;
 
 // Forward references
 void pulse(int pin, int times);
-void read_image(image_t *ip);
+void read_image(const image_t *ip);
 
 // Global Variables
 
 /*
  * Table of defined images
  */
-image_t *images[] = {
+const image_t *images[] = {
   &image_328, &image_328p, &image_168, &image_8, 0
 };
 
@@ -127,7 +127,7 @@ uint16_t target_startaddr;
 uint8_t target_pagesize;       /* Page size for flash programming (bytes) */
 uint8_t *buff;
 
-image_t *target_flashptr; 	       /* pointer to target info in flash */
+image_t const *target_flashptr; 	       /* pointer to target info in flash */
 uint8_t target_code[512];	       /* The whole code */
 
 
@@ -328,10 +328,10 @@ void end_pmode () {
  * Also read other data from the image, such as fuse and protecttion byte
  * values during programming, and for after we're done.
  */
-void read_image (image_t *ip)
+void read_image (const image_t *ip)
 {
   uint16_t len, totlen=0, addr;
-  char *hextext = &ip->image_hexcode[0];
+  const char *hextext = &ip->image_hexcode[0];
   target_startaddr = 0;
   target_pagesize = pgm_read_byte(&ip->image_pagesize);
   uint8_t b, cksum = 0;
@@ -414,10 +414,10 @@ void read_image (image_t *ip)
 
 boolean target_findimage ()
 {
-  image_t *ip;
   fp("Searching for image...\n");
   for (uint8_t i=0; i < sizeof(images)/sizeof(images[0]); i++) {
-    target_flashptr = ip = images[i];
+    const image_t *ip = images[i];
+    target_flashptr = images[i];
     if (ip && (pgm_read_word(&ip->image_chipsig) == target_type)) {
       fp("  Found \"");
       flashprint(&ip->image_name[0]);
@@ -660,7 +660,7 @@ uint16_t read_signature () {
  */
 
 
-image_t PROGMEM image_328 = {
+const image_t PROGMEM image_328 = {
   {
     "optiboot_atmega328.hex"    }
   ,
@@ -714,7 +714,7 @@ image_t PROGMEM image_328 = {
   }
 };
 
-image_t PROGMEM image_328p = {
+const image_t PROGMEM image_328p = {
   {
     "optiboot_atmega328.hex"    }
   ,
@@ -768,7 +768,7 @@ image_t PROGMEM image_328p = {
   }
 };
 
-image_t PROGMEM image_168 = {
+const image_t PROGMEM image_168 = {
   {
     "optiboot_atmega168.hex"    }
   ,
@@ -822,7 +822,7 @@ image_t PROGMEM image_168 = {
   }
 };
 
-image_t PROGMEM image_8 = {
+const image_t PROGMEM image_8 = {
   {
     "optiboot_atmega8.hex"    }
   ,

@@ -1,0 +1,11 @@
+2013-11-06  Jeremy Bennett <jeremy.bennett@embecosm.com>
+
+	* ChangeLog: created.
+	* optiLoader.ino: Renamed from optiLoaded.pde
+	(read_image): Argument declared const, hextext declared const.
+	(images): Array declared const.
+	(target_findimage): ip declared const.
+	(image_328, image_328p, image_168, image_8): Declared const.
+	* optiloader.h (image_328, image_328p, image_168, image_8):
+	Declared const.
+	* Readme: Updated to note fixes.
